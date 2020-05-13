@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,10 +50,35 @@ public class MainActivity extends AppCompatActivity {
                         winner = "Red";
                     }
 
-                    android.widget.Toast.makeText(this, winner + " has won!", android.widget.Toast.LENGTH_SHORT).show();
+                    Button playAgainButton = (Button) findViewById(R.id.playAgainButton);
+                    android.widget.TextView winnerTextView= (android.widget.TextView) findViewById(R.id.winnerTextView);
+                    winnerTextView.setText(winner + " has won!");
+
+                    playAgainButton.setVisibility(View.VISIBLE);
+                    winnerTextView.setVisibility(View.VISIBLE);
                 }
             }
         }
+    }
+
+    public void playAgain(View view){
+        Button playAgainButton = (Button) findViewById(R.id.playAgainButton);
+        android.widget.TextView winnerTextView= (android.widget.TextView) findViewById(R.id.winnerTextView);
+        playAgainButton.setVisibility(View.INVISIBLE);
+        winnerTextView.setVisibility(View.INVISIBLE);
+
+        android.widget.GridLayout gridLayout = (GridLayout) findViewById(R.id.gridLayout);
+
+        for (int i=0; i<gridLayout.getChildCount(); i++) {
+            ImageView counter = (ImageView) gridLayout.getChildAt(i);
+            counter.setImageDrawable(null);
+        }
+
+        for(int i=0;i<gameState.length;i++){
+            gameState[i]=2;
+        }
+        activePlayer =0;
+        gameActive = true;
     }
 
     @Override
